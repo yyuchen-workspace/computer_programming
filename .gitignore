@@ -127,3 +127,76 @@ __pycache__/
 # VirtualBox directories
 tools/vitualbox.Ubuntu/
 tools/
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+*.stackdump
+
+# Windows Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Windows build files
+*.pdb
+*.lib
+*.exp
+*.ilk
+*.meta
+*.iobj
+*.pch
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# C/C++ object files
+*.o
+*.obj
+
+# Cross-platform line endings
+*.txt text=auto
+*.md text=auto
+*.c text=auto
+*.cpp text=auto
+*.h text=auto
+*.py text=auto
+*.js text=auto
