@@ -1,0 +1,10 @@
+{
+  "output_folder": "C:/Users/user/Desktop/computer_programming/Programs/python/HTML/community_data/社區資料儲存資料夾",
+  "scrape_option": "single_district",
+  "schedule_enabled": true,
+  "schedule_day": "星期一",
+  "schedule_time": "09:38",
+  "schedule_output_folder": "C:/Users/user/Desktop/computer_programming/Programs/python/HTML/community_data/社區資料儲存資料夾/新北市(4490筆資料)_2025_07_11",
+  "schedule_scrape_mode": "all_cities",
+  "last_updated": "2025-07-14T09:37:29.579661"
+}

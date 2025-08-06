@@ -1,0 +1,114 @@
+Script started on Wed Apr  7 10:53:05 2010
+]0;ghhwang@webmail:~/Programs[?1034h[01;32mghhwang@webmail[01;34m ~/Programs $[00m ls
+[00m[01;34mErrHandling[00m  [00mch2-01.l[00m   [00mch3-03.l[00m   [00mlex.yy.c[00m           [00msecond[00m
+[00mMakefile[00m     [00mch2-02.l[00m   [00mch3-03.y[00m   [00mlex_lookahead.l[00m    [00msql1.y[00m
+[00mMyReport[00m     [00mch2-03.l[00m   [00mch3-03a.y[00m  [00mlibfl.a[00m            [00msql2.y[00m
+[00mWC[00m           [00mch2-04.l[00m   [00mch3-03v.y[00m  [00mliby.a[00m             [00msqltext.c[00m
+[01;32ma.out[00m        [00mch2-05.l[00m   [00mch3-04.l[00m   [00mlll[00m                [00msubr.c[00m
+[00ma1.out[00m       [00mch2-06.l[00m   [00mch3-04.y[00m   [00mmagic.input[00m        [00mt1[00m
+[00mape-05.l[00m     [00mch2-07.l[00m   [00mch3-05.l[00m   [00mmgl-code[00m           [00mt1.y[00m
+[00mape-06.l[00m     [00mch2-08.l[00m   [00mch3-05.y[00m   [00mmgl-in[00m             [00mt2[00m
+[00mch1-01.l[00m     [00mch2-09.l[00m   [00mch3-06.y[00m   [00mmgllex.l[00m           [00mtest.y[00m
+[00mch1-02.l[00m     [00mch3-01[00m     [00mch3hdr.h[00m   [00mmglyac.y[00m           [00mtest1.y[00m
+[00mch1-03.l[00m     [00mch3-01.l[00m   [00mch3hdr2.h[00m  [00mmmain.c[00m            [00mtest_lex_return.l[00m
+[00mch1-04.l[00m     [00mch3-01.y[00m   [00mdata[00m       [00mmypro[00m              [00mttt[00m
+[00mch1-05.l[00m     [00mch3-01a[00m    [00mexecution[00m  [00mmyresult[00m           [00my.output[00m
+[00mch1-05.y[00m     [00mch3-01a.y[00m  [00mfirst[00m      [00mresult[00m             [00my.tab.c[00m
+[00mch1-05y.h[00m    [00mch3-02[00m     [00;32min.txt[00m     [00msample.c[00m           [00my.tab.h[00m
+[00mch1-06.l[00m     [00mch3-02.y[00m   [00minput[00m      [00mscanner_example.l[00m
+[00mch1-06.y[00m     [00mch3-02a.y[00m  [00mk2.y[00m       [00mscn1.l[00m
+[00mch1-06y.h[00m    [00mch3-03[00m     [00mkkk[00m        [00mscn2.l[00m
+[m]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m cat test        
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m cat scanner_example.l
+%{
+/*
+ * this sample demonstrates (very) simple recognition:
+ * a verb/not a verb.
+ */
+
+%}
+%%
+
+[\t ]+		/* ignore white space */ ;
+
+is |
+am |
+are |
+were |
+was |
+be |
+being |
+been |
+do |
+does |
+did |
+will |
+would |
+should |
+can |
+could |
+has |
+have |
+had |
+go		{
+		return 1; }
+
+[a-zA-Z]+ 	{ return 2; }
+
+.|\n     	{  
+                    /* normal default anyway */ }
+%%
+
+main()
+{
+ int i;
+ 
+ while ((i=yylex())!=0)
+ {
+ printf("return value is %d, token is %s\n", i,yytext);
+ }
+
+ printf("End of file\n");
+
+
+
+}
+
+
+
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m ls
+[00m[01;34mErrHandling[00m  [00mch2-01.l[00m   [00mch3-03.l[00m   [00mlex.yy.c[00m           [00msecond[00m
+[00mMakefile[00m     [00mch2-02.l[00m   [00mch3-03.y[00m   [00mlex_lookahead.l[00m    [00msql1.y[00m
+[00mMyReport[00m     [00mch2-03.l[00m   [00mch3-03a.y[00m  [00mlibfl.a[00m            [00msql2.y[00m
+[00mWC[00m           [00mch2-04.l[00m   [00mch3-03v.y[00m  [00mliby.a[00m             [00msqltext.c[00m
+[01;32ma.out[00m        [00mch2-05.l[00m   [00mch3-04.l[00m   [00mlll[00m                [00msubr.c[00m
+[00ma1.out[00m       [00mch2-06.l[00m   [00mch3-04.y[00m   [00mmagic.input[00m        [00mt1[00m
+[00mape-05.l[00m     [00mch2-07.l[00m   [00mch3-05.l[00m   [00mmgl-code[00m           [00mt1.y[00m
+[00mape-06.l[00m     [00mch2-08.l[00m   [00mch3-05.y[00m   [00mmgl-in[00m             [00mt2[00m
+[00mch1-01.l[00m     [00mch2-09.l[00m   [00mch3-06.y[00m   [00mmgllex.l[00m           [00mtest.y[00m
+[00mch1-02.l[00m     [00mch3-01[00m     [00mch3hdr.h[00m   [00mmglyac.y[00m           [00mtest1.y[00m
+[00mch1-03.l[00m     [00mch3-01.l[00m   [00mch3hdr2.h[00m  [00mmmain.c[00m            [00mtest_lex_return.l[00m
+[00mch1-04.l[00m     [00mch3-01.y[00m   [00mdata[00m       [00mmypro[00m              [00mttt[00m
+[00mch1-05.l[00m     [00mch3-01a[00m    [00mexecution[00m  [00mmyresult[00m           [00my.output[00m
+[00mch1-05.y[00m     [00mch3-01a.y[00m  [00mfirst[00m      [00mresult[00m             [00my.tab.c[00m
+[00mch1-05y.h[00m    [00mch3-02[00m     [00;32min.txt[00m     [00msample.c[00m           [00my.tab.h[00m
+[00mch1-06.l[00m     [00mch3-02.y[00m   [00minput[00m      [00mscanner_example.l[00m
+[00mch1-06.y[00m     [00mch3-02a.y[00m  [00mk2.y[00m       [00mscn1.l[00m
+[00mch1-06y.h[00m    [00mch3-03[00m     [00mkkk[00m        [00mscn2.l[00m
+[m]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m lex saca    ca  scanner_example.l 
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m [K~ !gcc
+gcc lex.yy.c -lfl
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m ./a.out<kkk
+return value is 2, token is This
+return value is 1, token is is
+return value is 2, token is a
+return value is 2, token is book
+return value is 2, token is That
+return value is 1, token is is
+return value is 2, token is a
+return value is 2, token is pencil
+End of file
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m exit
+exit
+
+Script done on Wed Apr  7 10:54:14 2010

@@ -1,0 +1,90 @@
+%{
+#include<stdio.h>
+#include<stdlib.h>
+
+unsigned linecount = 1; 
+
+void print_token(const char *token_type, const char *yytext)
+{
+	printf("Token number = %s ,  Value is %s\n", token_type, yytext);
+}
+%}
+
+eol \n
+
+%%
+
+{eol} {linecount++;}
+
+[ \t\r]+
+"%%".*\n
+
+[Bb][Ee][Gg][Ii][Nn]	{print_token("1", yytext);}
+[Ee][Nn][Dd]	{print_token("2", yytext);}
+[Rr][Ee][Aa][Dd]	{print_token("3", yytext);}
+[Ww][Rr][Ii][Tt][Ee]			{print_token("4", yytext);}
+[Ii][Ff]				{print_token("25", yytext);}
+[Tt][Hh][Ee][Nn]			{print_token("26", yytext);}
+[Ee][Ll][Ss][Ee]			{print_token("27", yytext);}
+[Ee][Nn][Dd][Ii][Ff]			{print_token("28", yytext);}
+[Ff][Oo][Rr]				{print_token("29", yytext);}
+[Tt][Oo]				{print_token("30", yytext);}
+[Ee][Nn][Dd][Ff][Oo][Rr]		{print_token("31", yytext);}
+[Ww][Hh][Ii][Ll][Ee]			{print_token("32", yytext);}
+[Ee][Nn][Dd][Ww][Hh][Ii][Ll][Ee]	{print_token("33", yytext);}
+[Dd][Ee][Cc][Ll][Aa][Rr][Ee]		{print_token("34", yytext);}
+[Aa][Ss]				{print_token("35", yytext);}
+[Ii][Nn][Tt][Ee][Gg][Ee][Rr]		{print_token("36", yytext);}
+[Rr][Ee][Aa][Ll]			{print_token("37", yytext);}
+
+[a-zA-Z_][a-zA-Z0-9]*	{print_token("5", yytext);}
+[0-9]+		{print_token("6", yytext);}
+[0-9]*\.[0-9]+	{print_token("7", yytext);}
+[0-9]+\.[0-9]*	{print_token("7", yytext);}
+[0-9]+(\.[0-9]*)?[Ee][+-]?[0-9]+	{print_token("8", yytext);}
+
+\"[^\"]*\"	{print_token("9", yytext);}
+\'[^\']*\'	{print_token("39", yytext);}
+"("	{print_token("10", yytext);}
+")"	{print_token("11", yytext);}
+";"	{print_token("12", yytext);}
+","	{print_token("13", yytext);}
+":="	{print_token("14", yytext);}
+"+"	{print_token("15", yytext);}
+"-"	{print_token("16", yytext);}
+"*"	{print_token("17", yytext);}
+"/"	{print_token("18", yytext);}
+"!="	{print_token("19", yytext);}
+">"	{print_token("20", yytext);}
+"<"	{print_token("21", yytext);}
+">="	{print_token("22", yytext);}
+"<="	{print_token("23", yytext);}
+"=="	{print_token("24", yytext);}
+
+<<EOF>>	{print_token("38", "ScanEof"); return 0;}
+
+.	{printf("Lexial Error: Unrecognized token '%s' at Line %u\n", yytext, linecount);}
+
+%%
+
+main(argc, argv)
+int argc;
+char **argv;
+{
+	if(argc > 1)
+	{
+		FILE *file;
+		file = fopen(argv[1], "r");
+		if(!file)
+		{
+			fprintf(stderr, "could not open %s\n", argv[1]);
+			exit(1);
+		}
+		yyin = file;
+	}
+	
+	yylex();	
+	return 0;
+
+}
+

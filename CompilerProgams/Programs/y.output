@@ -1,0 +1,233 @@
+   0  $accept : statement $end
+
+   1  statement : NAME '=' expression
+   2            | expression
+
+   3  expression : expression '+' expression
+   4             | expression '-' expression
+   5             | expression '*' expression
+   6             | expression '/' expression
+   7             | '-' expression
+   8             | '(' expression ')'
+   9             | NUMBER
+
+state 0
+	$accept : . statement $end  (0)
+
+	NAME  shift 1
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	statement  goto 5
+	expression  goto 6
+
+
+state 1
+	statement : NAME . '=' expression  (1)
+
+	'='  shift 7
+	.  error
+
+
+state 2
+	expression : NUMBER .  (9)
+
+	.  reduce 9
+
+
+state 3
+	expression : '-' . expression  (7)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 8
+
+
+state 4
+	expression : '(' . expression ')'  (8)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 9
+
+
+state 5
+	$accept : statement . $end  (0)
+
+	$end  accept
+
+
+state 6
+	statement : expression .  (2)
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+
+	'-'  shift 10
+	'+'  shift 11
+	'*'  shift 12
+	'/'  shift 13
+	$end  reduce 2
+
+
+state 7
+	statement : NAME '=' . expression  (1)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 14
+
+
+state 8
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+	expression : '-' expression .  (7)
+
+	.  reduce 7
+
+
+state 9
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+	expression : '(' expression . ')'  (8)
+
+	'-'  shift 10
+	'+'  shift 11
+	'*'  shift 12
+	'/'  shift 13
+	')'  shift 15
+	.  error
+
+
+state 10
+	expression : expression '-' . expression  (4)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 16
+
+
+state 11
+	expression : expression '+' . expression  (3)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 17
+
+
+state 12
+	expression : expression '*' . expression  (5)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 18
+
+
+state 13
+	expression : expression '/' . expression  (6)
+
+	NUMBER  shift 2
+	'-'  shift 3
+	'('  shift 4
+	.  error
+
+	expression  goto 19
+
+
+state 14
+	statement : NAME '=' expression .  (1)
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+
+	'-'  shift 10
+	'+'  shift 11
+	'*'  shift 12
+	'/'  shift 13
+	$end  reduce 1
+
+
+state 15
+	expression : '(' expression ')' .  (8)
+
+	.  reduce 8
+
+
+state 16
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression '-' expression .  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+
+	'*'  shift 12
+	'/'  shift 13
+	$end  reduce 4
+	'-'  reduce 4
+	'+'  reduce 4
+	')'  reduce 4
+
+
+state 17
+	expression : expression . '+' expression  (3)
+	expression : expression '+' expression .  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+
+	'*'  shift 12
+	'/'  shift 13
+	$end  reduce 3
+	'-'  reduce 3
+	'+'  reduce 3
+	')'  reduce 3
+
+
+state 18
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression '*' expression .  (5)
+	expression : expression . '/' expression  (6)
+
+	.  reduce 5
+
+
+state 19
+	expression : expression . '+' expression  (3)
+	expression : expression . '-' expression  (4)
+	expression : expression . '*' expression  (5)
+	expression : expression . '/' expression  (6)
+	expression : expression '/' expression .  (6)
+
+	.  reduce 6
+
+
+12 terminals, 3 nonterminals
+10 grammar rules, 20 states

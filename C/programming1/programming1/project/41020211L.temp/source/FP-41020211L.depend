@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1734842646 source:c:\users\user\desktop\programming\c\programming1\project\41020211l\source\snake_final.cpp
+	"snake_function.h"
+
+1733979600 c:\users\user\desktop\programming\c\programming1\project\41020211l\source\snake_function.h
+	<stdio.h>
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+	<stdbool.h>
+	<stdint.h>
+
+1733979942 source:c:\users\user\desktop\programming\c\programming1\project\41020211l\source\snake_function.cpp
+	"snake_function.h"
+

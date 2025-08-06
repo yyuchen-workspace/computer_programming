@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>天氣卡片 UI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2 id="location-title">📍 載入中...</h2>
+  <div id="weather-container"></div>
+
+  <script>
+    fetch("../data/weather_data.json")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("location-title").textContent =
+          `📍 ${data.city} ${data.district} - 未來天氣預報`;
+
+        const container = document.getElementById("weather-container");
+        data.weather_data.forEach(entry => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+          <h3>🕒 ${entry["時間"]}</h3>
+          ${entry["溫度"] ? `<p>🌡️ 溫度: ${entry["溫度"]}°C</p>` : ""}
+          ${entry["體感溫度"] ? `<p>🥵 體感: ${entry["體感溫度"]}°C</p>` : ""}
+          ${entry["3小時降雨機率"] ? `<p>🌧️ 降雨機率: ${entry["3小時降雨機率"]}%</p>` : ""}
+          ${entry["天氣預報綜合描述"] ? `<p>📝 描述: ${entry["天氣預報綜合描述"]}</p>` : ""}
+          ${entry["風速"] ? `<p>💨 風速: ${entry["風速"]}</p>` : ""}
+          ${entry["風向"] ? `<p>🧭 風向: ${entry["風向"]}</p>` : ""}
+          ${entry["相對濕度"] ? `<p>💧 濕度: ${entry["相對濕度"]}%</p>` : ""}
+          ${entry["舒適度指數"] ? `<p>🙂 舒適度: ${entry["舒適度指數"]}</p>` : ""}
+          `;       
+
+          container.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html>

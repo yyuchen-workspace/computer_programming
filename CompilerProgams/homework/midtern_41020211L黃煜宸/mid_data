@@ -1,0 +1,37 @@
+%%the begin title
+
+begin 
+	declare X, Y, Z  as integer;
+	declare l, m   as integer;
+	declare a, b, c  result as real;
+	declare MS(10) AS REAL;
+	declare FL;
+
+	READ(X,Y,l,m);
+	a:=12.34;
+	b:=-0.1;
+	c:=3.1415E92;
+	result:=a*b+c/123.-12.5;
+	
+	WRITE("Result is : ", result);
+
+	IF(X==Y)THEN
+		print("YES");
+	ELSE
+		print('N');
+	ENDIF
+
+	FOR(X:=1 TO 10)
+		result:=result+z;
+	ENDFOR
+
+	WHILE(result<=1000)
+		result:=result*2;
+	ENDWHILE
+
+	IF(l!=m)
+		print(!);
+end 
+
+
+

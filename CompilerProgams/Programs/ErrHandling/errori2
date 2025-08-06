@@ -1,0 +1,6 @@
+abc=1
+abc
+bc=abc*2/3
+bc=bc+1-+2
+d=abc+bc
+d

@@ -1,0 +1,40 @@
+Script started on Wed Apr 12 10:49:52 2006
+[01;32mghhwang@www [01;34m~/Programs $ [00mcat ch2-02.l
+%{
+unsigned charCount = 0, wordCount = 0, lineCount = 0;
+%}
+
+word [^ \t\n]+
+eol  \n
+%%
+{word}	{ wordCount++; charCount += yyleng; }
+{eol}	{ charCount++; lineCount++; }
+.	charCount++;
+%%
+main(argc,argv)
+int argc;
+char **argv;
+{
+
+	if (argc > 1) {
+		FILE *file;
+
+		file = fopen(argv[1], "r");
+		if (!file) {
+			fprintf(stderr,"could not open %s\n",argv[1]);
+			exit(1);
+		}
+		yyin = file;
+	}
+	yylex();
+	printf("%d %d %d\n",charCount, wordCount, lineCount);
+	return 0;
+}
+[01;32mghhwang@www [01;34m~/Programs $ [00mlex ch2-02.l
+[01;32mghhwang@www [01;34m~/Programs $ [00mgcc lexs.  x .yy.c -lfl
+[01;32mghhwang@www [01;34m~/Programs $ [00m./a.out<kkk
+489 51 8
+[01;32mghhwang@www [01;34m~/Programs $ [00mexit
+exit
+
+Script done on Wed Apr 12 10:50:44 2006

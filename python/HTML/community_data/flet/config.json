@@ -1,0 +1,10 @@
+{
+  "output_folder": "C:\\Users\\user\\Desktop\\computer_programming\\Programs\\python\\HTML\\community_data\\flet\\爬蟲資料",
+  "auto_schedule": false,
+  "schedule_day": "星期一",
+  "schedule_time": "02:00",
+  "scrape_mode": "all_cities",
+  "selected_city": "",
+  "selected_district": "",
+  "theme_mode": "system"
+}

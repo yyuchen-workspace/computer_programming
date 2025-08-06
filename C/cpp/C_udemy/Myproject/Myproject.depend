@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1727059709 source:c:\users\user\desktop\programming\cpp\c_udemy\myproject\main.c
+	<stdio.h>
+	<stdlib.h>
+	"myLibrary.h"
+
+1727059884 c:\users\user\desktop\programming\cpp\c_udemy\myproject\mylibrary.h
+

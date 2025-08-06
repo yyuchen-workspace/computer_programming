@@ -1,0 +1,75 @@
+Script started on Fri Apr  7 15:44:34 2006
+[01;32mghhwang@www [01;34m~/Programs $ [00mcat scanner_example.l 
+%{
+/*
+ * this sample demonstrates (very) simple recognition:
+ * a verb/not a verb.
+ */
+
+%}
+%%
+
+[\t ]+		/* ignore white space */ ;
+
+is |
+am |
+are |
+were |
+was |
+be |
+being |
+been |
+do |
+does |
+did |
+will |
+would |
+should |
+can |
+could |
+has |
+have |
+had |
+go		{
+		return 1; }
+
+[a-zA-Z]+ 	{ return 2; }
+
+.|\n     	{  
+                    /* normal default anyway */ }
+%%
+
+main()
+{
+ int i;
+ 
+ while ((i=yylex())!=0)
+ {
+ printf("return value is %d, token is %s\n", i,yytext);
+ }
+
+ printf("End of file\n");
+
+
+
+}
+
+
+
+[01;32mghhwang@www [01;34m~/Programs $ [00m[Klex scanner_example.l 
+[01;32mghhwang@www [01;34m~/Programs $ [00m[K!~ gcc
+gcc lex.yy.c -lfl
+[01;32mghhwang@www [01;34m~/Programs $ [00m./a.out<kkk
+return value is 1, token is is
+return value is 1, token is are
+return value is 2, token is not
+return value is 2, token is isa
+return value is 2, token is sjfldsjf
+return value is 1, token is is
+return value is 1, token is has
+return value is 1, token is go
+End of file
+[01;32mghhwang@www [01;34m~/Programs $ [00mexit
+exit
+
+Script done on Fri Apr  7 15:45:32 2006

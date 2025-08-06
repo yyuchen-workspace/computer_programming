@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 jQuery 函式庫用於 AJAX 操作 -->
+    <script src="../static/jquery-3.6.0.min.js"></script>
+    <title>WebAPI</title>
+</head>
+
+<body>
+    <!-- 主標題 -->
+    <h1>DATA : API</h1>
+    
+    <!-- GET 操作區域 -->
+    <h2>API : GET</h2>
+    <!-- GET 按鈕：點擊後從伺服器讀取資料 -->
+    <button id='btnGet'>GET</button>
+    <hr>
+    
+    <!-- POST 操作區域 -->
+    <h2>API : POST</h2>
+    <!-- 表單輸入欄位：收集要傳送到伺服器的應用程式資訊 -->
+    <p>APP_ID :
+        <input id="app_id" name="app_id" type="number" />
+    </p>
+    <p>APP_NAME :
+        <input id="app_name" name="app_name" type="text" />
+    </p>
+    <p>APP_VERSION :
+        <input id="app_version" name="app_version" type="text" />
+    </p>
+    <p>APP_AUTHOR :
+        <input id="app_author" name="app_author" type="text" />
+    </p>
+    <p>APP_REMARK :
+        <input id="app_remark" name="app_remark" type="text" />
+    </p>
+    <!-- POST 按鈕：點擊後將表單資料傳送到伺服器 -->
+    <button id="btnPost">POST</button>
+    <hr>
+    
+    <!-- 顯示區域：顯示操作結果和回傳的資料 -->
+    <h3>Console : </h3>
+    <div id="console"></div>
+    
+    <script>
+        // 使用 jQuery 的 document ready 函數，確保 DOM 載入完成後執行
+        $(function () {
+            // 取得頁面元件的 jQuery 物件，方便後續操作
+            var $btnGet = $('#btnGet');           // GET 按鈕
+            var $console = $('#console');         // 顯示結果的 div
+            var $btnPost = $('#btnPost');         // POST 按鈕
+            var $edtAppId = $('#app_id');         // 應用程式 ID 輸入框
+            var $edtAppName = $('#app_name');     // 應用程式名稱輸入框
+            var $edtAppVersion = $('#app_version'); // 版本輸入框
+            var $edtAppAuthor = $('#app_author');  // 作者輸入框
+            var $edtAppRemark = $('#app_remark');  // 備註輸入框
+            
+            // GET 按鈕點擊事件處理
+            $btnGet.off('click').on('click', function () {
+                // 發送 AJAX GET 請求到伺服器
+                $.ajax({
+                    url: '/data/message',        // 請求的 URL
+                    data: {},                    // GET 請求不需要傳送資料
+                    type: 'GET',                 // 請求方法
+                    success: function (data) {   // 請求成功時的回調函數
+                        // 清空並顯示從伺服器取得的資料
+                        $console.html("");
+                        $console.append("data[id] : " + data.appInfo.id + "<br>");
+                        $console.append("data[name] : " + data.appInfo.name + "<br>");
+                        $console.append("data[version] : " + data.appInfo.version + "<br>");
+                        $console.append("data[author] : " + data.appInfo.author + "<br>");
+                        $console.append("data[remark] : " + data.appInfo.remark + "<br>");
+
+                        // 將取得的資料填入表單輸入框，方便使用者編輯
+                        $edtAppId.val(data.appInfo.id);
+                        $edtAppName.val(data.appInfo.name);
+                        $edtAppVersion.val(data.appInfo.version);
+                        $edtAppAuthor.val(data.appInfo.author);
+                        $edtAppRemark.val(data.appInfo.remark);
+                    },
+                    error: function (xhr) {      // 請求失敗時的回調函數
+                        alert('Ajax request 發生錯誤');
+                    }
+                });
+            })
+            
+            // POST 按鈕點擊事件處理
+            $btnPost.off('click').on('click', function () {
+                // 發送 AJAX POST 請求到伺服器
+                $.ajax({
+                    url: '/data/message',        // 請求的 URL
+                    data: {                      // 要傳送的表單資料
+                        "app_id": $edtAppId.val(),
+                        "app_name": $edtAppName.val(),
+                        "app_version": $edtAppVersion.val(),
+                        "app_author": $edtAppAuthor.val(),
+                        "app_remark": $edtAppRemark.val(),
+                    },
+                    type: 'POST',                // 請求方法
+                    success: function (data) {   // 請求成功時的回調函數
+                        // 顯示伺服器回傳的結果
+                        $console.text("result = ");
+                        $console.append(data.result);
+                    },
+                    error: function (xhr) {      // 請求失敗時的回調函數
+                        alert('Ajax request 發生錯誤');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

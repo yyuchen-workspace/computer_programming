@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>天氣卡片與圖表</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f5f7fa;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      padding: 16px;
+      margin: 12px;
+      width: 280px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: inline-block;
+      vertical-align: top;
+    }
+    .card h3 { margin-top: 0; font-size: 1.1em; }
+    .card p { margin: 4px 0; }
+    canvas { max-width: 100%; margin: 30px auto; }
+  </style>
+</head>
+<body>
+
+  <h2 id="location-title">📍 載入中...</h2>
+
+  <!-- 卡片容器 -->
+  <div id="weather-container"></div>
+
+  <!-- 圖表容器 -->
+  <h3>📈 氣溫變化圖</h3>
+  <canvas id="temperatureChart" height="120"></canvas>
+
+  <h3>📉 濕度趨勢圖</h3>
+  <canvas id="humidityChart" height="120"></canvas>
+
+  <script>
+    fetch("data/weather_data.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("weather-container");
+        document.getElementById("location-title").textContent =
+          `📍 ${data.city} ${data.district} - 未來天氣預報`;
+
+        const labels = [];
+        const temps = [];
+        const humids = [];
+
+        data.weather_data.forEach(entry => {
+          const time = entry["時間"];
+          const temp = parseFloat(entry["溫度"]);
+          const humid = parseFloat(entry["相對濕度"]);
+
+          // 👉 畫圖資料
+          if (!isNaN(temp)) {
+            labels.push(time.split("T")[1]?.substring(0,5) || time); // 取 hh:mm
+            temps.push(temp);
+          }
+          if (!isNaN(humid)) humids.push(humid);
+
+          // 👉 卡片渲染
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h3>🕒 ${time}</h3>
+            ${entry["溫度"] ? `<p>🌡️ 溫度: ${entry["溫度"]}°C</p>` : ""}
+            ${entry["體感溫度"] ? `<p>🥵 體感: ${entry["體感溫度"]}°C</p>` : ""}
+            ${entry["相對濕度"] ? `<p>💧 濕度: ${entry["相對濕度"]}%</p>` : ""}
+            ${entry["3小時降雨機率"] ? `<p>🌧️ 降雨: ${entry["3小時降雨機率"]}%</p>` : ""}
+            ${entry["風向"] || entry["風速"] ? `<p>💨 風: ${entry["風向"] || ""} ${entry["風速"] || ""}</p>` : ""}
+            ${entry["舒適度指數"] ? `<p>🙂 舒適度: ${entry["舒適度指數"]}</p>` : ""}
+            ${entry["天氣預報綜合描述"] ? `<p>📝 ${entry["天氣預報綜合描述"]}</p>` : ""}
+          `;
+          container.appendChild(card);
+        });
+
+        // 👉 Chart.js - 溫度圖
+        new Chart(document.getElementById("temperatureChart"), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: '溫度 (°C)',
+              data: temps,
+              borderWidth: 2,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: true } }
+          }
+        });
+
+        // 👉 Chart.js - 濕度圖
+        new Chart(document.getElementById("humidityChart"), {
+          type: 'line',
+          data: {
+            labels: labels.slice(0, humids.length),  // 同步 X 軸
+            datasets: [{
+              label: '相對濕度 (%)',
+              data: humids,
+              borderWidth: 2,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: true } }
+          }
+        });
+      });
+  </script>
+
+</body>
+</html>

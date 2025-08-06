@@ -1,0 +1,46 @@
+Script started on Wed Apr  9 10:58:54 2008
+]0;ghhwang@webmail:~/Programs[?1034h[01;32mghhwang@webmail[01;34m ~/Programs $[00m cat ch2-02.l
+%{
+unsigned charCount = 0, wordCount = 0, lineCount = 0;
+%}
+
+word [^ \t\n]+
+eol  \n
+%%
+{word}	{ wordCount++; charCount += yyleng; }
+{eol}	{ charCount++; lineCount++; }
+.	charCount++;
+%%
+main(argc,argv)
+int argc;
+char **argv;
+{
+
+	if (argc > 1) {
+		FILE *file;
+
+		file = fopen(argv[1], "r");
+		if (!file) {
+			fprintf(stderr,"could not open %s\n",argv[1]);
+			exit(1);
+		}
+		yyin = file;
+	}
+	yylex();
+	printf("%d %d %d\n",charCount, wordCount, lineCount);
+	return 0;
+}
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m lex ch3 2-02.l
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m gcc ch  lex.yy.c 0lf   -lfl
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m clear
+[H[2J]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m ./a.out
+243
+^[[13~^[[14~
+
+were
+
+22 3 5
+]0;ghhwang@webmail:~/Programs[01;32mghhwang@webmail[01;34m ~/Programs $[00m exit
+exit
+
+Script done on Wed Apr  9 10:59:34 2008
