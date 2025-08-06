@@ -1,5 +1,0 @@
-EXPORTS
-    DllMain @1
-    SomeFunction @2
-    sayhi @3
-    team @4
