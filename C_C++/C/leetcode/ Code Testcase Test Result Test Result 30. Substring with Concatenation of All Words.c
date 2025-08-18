@@ -9,6 +9,7 @@ int *findSubstring(char *s, char **words, int wordsSize, int *returnSize)
 
     while (words[words_quantity][0] != '\0')
     {
+
         words_quantity++;
     }
 }
