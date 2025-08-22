@@ -46,6 +46,7 @@ def create_city_folder(city_name):
     city_folder.mkdir(parents=True, exist_ok=True)
 
 
+# 爬取社區資料
 def find_data(url, city_name, district_name, count, do_dis):
     if do_dis == "否":
         file_path = Path(city_name) / f"{city_name}全部社區資料(共有{count}筆).txt"
