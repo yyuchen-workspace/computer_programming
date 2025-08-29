@@ -1,24 +1,35 @@
-class Student:
-    course = 'Programming'
+class Flower_Game():
+    def __init__(self, n, m):
+        self.x = n
+        self.y = m
 
-    def __init__(self, name, age):
-          self.name = name
-          self.age = age
-          self._protect_var = 10
-          self.__private_var = 100
+    def win_sets(self):
+        return (self.x // 2) * ((self.y + 1) // 2) + ((self.x + 1) // 2 ) * (self.y // 2)
     
-    def prints(self):
-         print(f"self.__private_var = {self.__private_var}")
+
+    def who_wins(self):
+        Alice_win_list = []
+        win_count = 0
+        for x in range(1, self.x+1):
+            for y in range(1, self.y+1):
+                if (x + y) % 2:
+                    Alice_win_list.append((x, y))
+                    win_count += 1
+        return Alice_win_list, win_count
+
+
+if __name__ == "__main__":
     
-    def test(self, var):
-        self.__private_var = var
-        print(f"{self.__private_var}")
+    n = int(input("請輸入x路線數字："))
+    m = int(input("請輸入y路線數字："))
+            
+    if n <= 0 or m <= 0:
+        print("Error: 1 <= n, m <= 100000")
 
-
-stu_1  = Student('Gary', 23)
-
-print(f"_protect_var = {stu_1._protect_var}")
-#print(stu_1.__private_var) #在class外面訪問會error
-stu_1.prints() 
-stu_1.test(50)
-print(f"__private_var out of class : {stu_1._Student__private_var}")
+    
+       
+    game = Flower_Game(n, m)
+    # win_list, win_count = game.who_wins()
+    # print(f"Alice有{win_count}種贏的可能, 分別為{win_list}")
+    win_count = game.win_sets()
+    print(f"Alice有{win_count}種贏的可能")
