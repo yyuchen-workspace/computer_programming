@@ -1,24 +1,39 @@
-class Student:
-    course = 'Programming'
-
-    def __init__(self, name, age):
-          self.name = name
-          self.age = age
-          self._protect_var = 10
-          self.__private_var = 100
-    
-    def prints(self):
-         print(f"self.__private_var = {self.__private_var}")
-    
-    def test(self, var):
-        self.__private_var = var
-        print(f"{self.__private_var}")
+import functools
 
 
-stu_1  = Student('Gary', 23)
+def demo(f):
+    @functools.wraps(f)
+    def wrapper(*args, **kwargs):
+        '''
+        這是一個列印函式名稱的裝飾器
+        '''
+        print(f"function name is {f.__name__}.")
+        print(f"{f.__doc__}")
+        return f(*args, **kwargs)
+    return wrapper
 
-print(f"_protect_var = {stu_1._protect_var}")
-#print(stu_1.__private_var) #在class外面訪問會error
-stu_1.prints() 
-stu_1.test(50)
-print(f"__private_var out of class : {stu_1._Student__private_var}")
+
+class Students:
+    def __init__(self, age, name, grade):
+        self.age = age
+        self.name = name
+        self.grade = grade
+
+
+    def say_hi(self, name):
+        print(f"Hi, my name is {name}.")   
+
+
+    @demo
+    def say_age(self):
+        '''
+        this is the function of Student's age
+        '''
+        print(f"I am {self.age} years old.")
+
+
+if __name__ == "__main__":
+    stu1 = Students(10, "Gary", 1)
+    stu1.say_age()
+
+
