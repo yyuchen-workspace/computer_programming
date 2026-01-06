@@ -1,0 +1,62 @@
+# ‡öŒ‡”
+*.md
+*.txt
+*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# °ƒŒ-š
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# åŒ”H
+*.log
+
+# «X”H
+*.tmp
+*.temp
+*.bak
+
+# ™ıÇ™>
+™ı”H/
+backup/
+
+# ,òÇ™ŒåŒ
+,òÇ™>/
+Ç™ô°åŒ/
+background_log*
+lock_file*

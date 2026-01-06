@@ -6,4 +6,4 @@ urllib3: 2.5.0
 
 bs4: 0.0.2
 
-requests: 2.32.4
+requests: 2.32.4# community_data
